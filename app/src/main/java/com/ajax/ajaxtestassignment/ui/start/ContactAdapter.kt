@@ -12,7 +12,8 @@ import kotlinx.android.synthetic.main.item_contact_list.view.*
 
 class ContactAdapter(
     var items: List<User>,
-    val click: (User) -> Unit
+    val click: (User) -> Unit,
+    val delete: (User) -> Unit
     ) : RecyclerView.Adapter<ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
@@ -24,6 +25,9 @@ class ContactAdapter(
         view.setOnClickListener { v ->
             (v.tag as? User)?.let(click)
         }
+        view.delete.setOnClickListener { v ->
+            (v.tag as? User)?.let(delete)
+        }
 
         return ViewHolder(
             view
@@ -33,6 +37,7 @@ class ContactAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val user = items[position]
         holder.itemView.tag = user
+        holder.delete.tag = user
         holder.text.text = user.run { "$firstName $lastName" }
 
         Picasso.with(holder.image.context)
@@ -50,4 +55,5 @@ class ContactAdapter(
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     val text = view.text
     val image = view.image
+    val delete = view.delete
 }

@@ -35,9 +35,9 @@ open class StartFragment : BaseFragment() {
                               container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
 
-        contactAdapter = ContactAdapter(listOf()){
-            (activity as? DetailOpener)?.openDetails(it)
-        }
+        contactAdapter = ContactAdapter(listOf(),
+            click = { (activity as? DetailOpener)?.openDetails(it) },
+            delete = { viewModel.delete(it) })
 
         // Creates a vertical Layout Manager
         view.contactList.layoutManager = LinearLayoutManager(context)

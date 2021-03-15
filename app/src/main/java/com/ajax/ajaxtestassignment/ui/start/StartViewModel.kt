@@ -31,4 +31,10 @@ class StartViewModel @Inject constructor(val repository: UsersRepository) : View
             _users.value = repository.reload()
         }
     }
+
+    fun delete(user: User) {
+        viewModelScope.launch {
+            _users.value = repository.delete(user)
+        }
+    }
 }

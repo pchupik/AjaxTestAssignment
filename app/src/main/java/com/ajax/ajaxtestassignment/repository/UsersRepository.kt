@@ -29,6 +29,11 @@ class UsersRepository @Inject constructor(val api: UserApi, val dao: UserDao){
         dao.update(user.convertToEntity())
     }
 
+    suspend fun reload() : List<User> {
+        dao.deleteAll()
+        return getUsers()
+    }
+
     private fun UserDTO.convert() : User = User(login.uuid,
         name?.first,
         name?.last,

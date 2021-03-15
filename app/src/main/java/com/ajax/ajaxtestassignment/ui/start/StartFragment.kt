@@ -2,9 +2,7 @@ package com.ajax.ajaxtestassignment.ui.start
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +28,7 @@ open class StartFragment : BaseFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (context.applicationContext as AjaxTestApp).appComponent.inject(this)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -37,7 +36,6 @@ open class StartFragment : BaseFragment() {
         val view = inflater.inflate(R.layout.fragment_start, container, false)
 
         contactAdapter = ContactAdapter(listOf()){
-//            Toast.makeText(context!!, it.lastName, Toast.LENGTH_SHORT).show()
             (activity as? DetailOpener)?.openDetails(it)
         }
 
@@ -58,6 +56,18 @@ open class StartFragment : BaseFragment() {
         })
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.start_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.reload){
+            viewModel.reload()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 
 

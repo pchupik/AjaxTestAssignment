@@ -25,4 +25,10 @@ class StartViewModel @Inject constructor(val repository: UsersRepository) : View
             value = repository.getUsers()
         }
     }
+
+    fun reload() {
+        viewModelScope.launch {
+            _users.value = repository.reload()
+        }
+    }
 }

@@ -65,4 +65,12 @@ class DetailsViewModel @Inject constructor(val repository: UsersRepository) : Ba
         }
     }
 
+    fun delete() {
+        user.value?.let {
+            viewModelScope.launch {
+                repository.delete(it)
+            }
+        }
+    }
+
 }

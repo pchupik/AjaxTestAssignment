@@ -89,5 +89,10 @@ open class DetailsFragment : BaseFragment() {
         saveButton.setOnClickListener { viewModel.save() }
 
         cancelButton.setOnClickListener { viewModel.cancel() }
+
+        deleteButton.setOnClickListener {
+            viewModel.delete()
+            parentFragmentManager.popBackStack()
+        }
     }
 }
